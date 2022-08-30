@@ -1,16 +1,15 @@
 import { Outlet } from "react-router-dom";
 
-// import Header from "../../components/Header";
+import { Header } from "../../components/Header";
 
-// import { LayoutContainer } from "./styles";
+import { LayoutContainer } from "./styles";
 
 export default function DefaultLayout() {
   return (
-    <div>
-      {/* <Header /> */}
-      <p>Head-</p>
+    <LayoutContainer>
+      <Header />
 
       <Outlet />
-    </div>
+    </LayoutContainer>
   );
 }
