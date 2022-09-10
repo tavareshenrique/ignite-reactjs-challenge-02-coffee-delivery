@@ -4,8 +4,7 @@ import { Button } from "../../components/Button";
 
 import { HeaderContainer, HeaderContent } from "./styles";
 
-import coffeeDeliveryLogo from "../../../public/logo.svg";
-import { useEffect } from "react";
+import coffeeDeliveryLogo from "../../assets/img/logo.svg";
 
 export function Header() {
   return (
