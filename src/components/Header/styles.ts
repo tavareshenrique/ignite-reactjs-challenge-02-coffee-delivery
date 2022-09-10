@@ -7,6 +7,12 @@ export const HeaderContainer = styled.header`
   justify-content: space-between;
 
   margin-bottom: 2rem;
+
+  @media only screen and (max-width: 768px) {
+    padding: 0 32px;
+
+    margin-bottom: 0;
+  }
 `;
 
 export const HeaderContent = styled.div`
