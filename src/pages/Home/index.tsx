@@ -1,3 +1,7 @@
+import { Package, Coffee, Timer, ShoppingCart } from "phosphor-react";
+
+import { items } from "./utils/json/items.json";
+
 import coffeeDeliveryImg from "../../assets/img/coffee.svg";
 
 import {
@@ -7,9 +11,25 @@ import {
   BannerRight,
   BannerTitle,
   HomeContainer,
+  IconColorType,
+  Item,
+  ItemsContainer,
 } from "./styles";
 
 export function Home() {
+  function createIcon(iconName: string) {
+    switch (iconName) {
+      case "Package":
+        return <Package weight="fill" size={16} />;
+      case "Coffee":
+        return <Coffee weight="fill" size={16} />;
+      case "Timer":
+        return <Timer weight="fill" size={16} />;
+      default:
+        return <ShoppingCart weight="fill" size={16} />;
+    }
+  }
+
   return (
     <HomeContainer>
       <Banner>
@@ -23,6 +43,16 @@ export function Home() {
               Com o Coffee Delivery você recebe seu café onde estiver, a <br />
               qualquer hora
             </BannerDescription>
+            <ItemsContainer>
+              {items.map((item) => {
+                return (
+                  <Item key={item.id} iconColor={item.color as IconColorType}>
+                    {createIcon(item.text)}
+                    <span>{item.text}</span>
+                  </Item>
+                );
+              })}
+            </ItemsContainer>
           </div>
         </BannerRight>
         <BannerLeft>
