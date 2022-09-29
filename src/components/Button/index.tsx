@@ -6,7 +6,7 @@ import { ButtonContainer } from "./styles";
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  color: ColorType;
+  color?: ColorType;
 }
 
 export function Button({ children, color = "purple", ...rest }: IButtonProps) {
