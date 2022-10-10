@@ -2,9 +2,9 @@ import { useState } from "react";
 
 import { ShoppingCart, Minus, Plus } from "phosphor-react";
 
-import { Button } from "../../../../components/Button";
+import { useCoffee } from "../../../../hooks/useCoffee";
 
-import traditionalEspressoImg from "../../../../assets/img/coffee-menu/american-espresso.svg";
+import { Button } from "../../../../components/Button";
 
 import {
   CoffeeBody,
@@ -38,6 +38,8 @@ interface ICoffeeCardProps {
 }
 
 export function CoffeeCard({ coffee }: ICoffeeCardProps) {
+  const { addNewCoffee, coffeeList, coffeeQuantity } = useCoffee();
+
   const [quantity, setQuantity] = useState(1);
 
   const priceFormatted = new Intl.NumberFormat("pt-BR", {
@@ -55,6 +57,16 @@ export function CoffeeCard({ coffee }: ICoffeeCardProps) {
     }
 
     setQuantity((oldQuantityState) => oldQuantityState + 1);
+  }
+
+  function handleAddCoffee() {
+    addNewCoffee({
+      coffeeData: {
+        ...coffee,
+        quantity,
+      },
+      quantity,
+    });
   }
 
   return (
@@ -90,6 +102,7 @@ export function CoffeeCard({ coffee }: ICoffeeCardProps) {
             type="button"
             color="purple-dark"
             className="purchase__button"
+            onClick={handleAddCoffee}
           >
             <ShoppingCart size={24} weight="fill" />
           </Button>

@@ -21,7 +21,7 @@ export const CoffeeCardContainer = styled.div`
   border-bottom-right-radius: 6px;
 `;
 
-export const CoffeeCardHeader = styled.head`
+export const CoffeeCardHeader = styled.header`
   position: relative;
   top: -4em;
 
