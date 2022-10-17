@@ -31,4 +31,34 @@ export const HeaderContent = styled.div`
   .header__shopping-cart_icon {
     color: ${(props) => props.theme["yellow-dark"]};
   }
+
+  .cart__button {
+    position: relative;
+  }
+`;
+
+export const CoffeQuantity = styled.div`
+  position: absolute;
+  top: -8px;
+  right: -8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+
+  padding: 2px;
+
+  background-color: ${(props) => props.theme["yellow-dark"]};
+
+  span {
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 130%;
+    color: ${(props) => props.theme.white};
+  }
 `;

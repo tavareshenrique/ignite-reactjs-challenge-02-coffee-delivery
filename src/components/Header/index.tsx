@@ -1,12 +1,16 @@
 import { MapPin, ShoppingCart } from "phosphor-react";
 
+import { useCoffee } from "../../hooks/useCoffee";
+
 import { Button } from "../../components/Button";
 
-import { HeaderContainer, HeaderContent } from "./styles";
+import { CoffeQuantity, HeaderContainer, HeaderContent } from "./styles";
 
 import coffeeDeliveryLogo from "../../assets/img/logo.svg";
 
 export function Header() {
+  const { coffeeQuantity } = useCoffee();
+
   return (
     <HeaderContainer>
       <img
@@ -21,12 +25,15 @@ export function Header() {
           <MapPin size={22} weight="fill" className="header__map-pin_icon" />
           <span>Três Rios, RJ</span>
         </Button>
-        <Button color="yellow-light">
+        <Button color="yellow-light" className="cart__button">
           <ShoppingCart
             size={22}
             weight="fill"
             className="header__shopping-cart_icon"
           />
+          <CoffeQuantity>
+            <span>{coffeeQuantity}</span>
+          </CoffeQuantity>
         </Button>
       </HeaderContent>
     </HeaderContainer>
