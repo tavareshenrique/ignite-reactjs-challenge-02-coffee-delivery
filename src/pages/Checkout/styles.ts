@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-export const CheckoutContainer = styled.main`
+export const CheckoutContainer = styled.form`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 `;
 
@@ -48,4 +48,41 @@ export const CoffeeCardContainer = styled.div`
   border-top-right-radius: 36px;
   border-bottom-left-radius: 36px;
   border-bottom-right-radius: 6px;
+`;
+
+export const CardHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  svg {
+    margin-bottom: 16px;
+
+    color: ${({ theme }) => theme["yellow-dark"]};
+  }
+`;
+
+export const CardHeaderTextContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  margin-left: 8px;
+`;
+
+export const CardTitle = styled.h3`
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 130%;
+
+  color: ${({ theme }) => theme["base-subtitle"]};
+`;
+
+export const CardSubtitle = styled.h4`
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 130%;
+
+  color: ${({ theme }) => theme["base-text"]};
 `;
