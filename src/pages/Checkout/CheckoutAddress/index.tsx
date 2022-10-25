@@ -45,11 +45,16 @@ const CheckoutAddress = forwardRef<HTMLInputElement>((_, ref) => {
     }
 
     getAddress();
-
-    // axios.get("https://viacep.com.br/ws/01001000/json/").then((response) => {
-    //   console.log(response.data);
-    // });
   }, [cep, setValue]);
+
+  useEffect(() => {
+    if (!cep) {
+      setDisabledStreet(false);
+      setDisabledNeighborhood(false);
+      setDisabledCity(false);
+      setDisabledUf(false);
+    }
+  }, [cep]);
 
   return (
     <AddressContainer>
