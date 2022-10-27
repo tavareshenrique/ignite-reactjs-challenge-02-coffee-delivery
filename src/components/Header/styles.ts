@@ -8,6 +8,12 @@ export const HeaderContainer = styled.header`
 
   margin-bottom: 2rem;
 
+  > button {
+    all: unset;
+
+    cursor: pointer;
+  }
+
   @media only screen and (max-width: 768px) {
     padding: 0 32px;
 
