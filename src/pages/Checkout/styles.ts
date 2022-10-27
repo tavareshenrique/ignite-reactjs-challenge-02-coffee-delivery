@@ -49,3 +49,16 @@ export const CoffeeCardContainer = styled.div`
   border-bottom-left-radius: 36px;
   border-bottom-right-radius: 6px;
 `;
+
+export const PaymentSelectContent = styled.div`
+  margin-top: 32px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  button + button {
+    margin-left: 12px;
+  }
+`;

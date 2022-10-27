@@ -1,9 +1,12 @@
-import { MapPinLine, CurrencyDollar } from "phosphor-react";
-
+import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 
+import { MapPinLine, CurrencyDollar } from "phosphor-react";
+
+import { PaymentSelect, TSelectPayment } from "../../components/PaymentSelect";
+
 import { CheckoutAddress } from "./CheckoutAddress";
-import CheckoutCardHeader from "./CheckoutCardHeader";
+import { CheckoutCardHeader } from "./CheckoutCardHeader";
 
 import {
   CardContainer,
@@ -11,6 +14,7 @@ import {
   CoffeeCardContainer,
   LeftSection,
   RightSection,
+  PaymentSelectContent,
   Title,
 } from "./styles";
 
@@ -25,13 +29,25 @@ export type TFormData = {
 };
 
 export function Checkout() {
+  const [selectedPayment, setSelectedPayment] = useState<TSelectPayment | null>(
+    null
+  );
+
   const methods = useForm<TFormData>();
 
   const { handleSubmit } = methods;
 
+  function handleSelectPayment(paymentType: TSelectPayment) {
+    setSelectedPayment(paymentType);
+  }
+
   function onSubmit(data: any) {
     console.log(data);
   }
+
+  const creditSelected = selectedPayment === "credit";
+  const debitSelected = selectedPayment === "debit";
+  const moneySelected = selectedPayment === "money";
 
   return (
     <CheckoutContainer onSubmit={handleSubmit(onSubmit)}>
@@ -62,6 +78,24 @@ export function Checkout() {
               color: "purple",
             }}
           />
+
+          <PaymentSelectContent>
+            <PaymentSelect
+              type="credit"
+              onSelect={handleSelectPayment}
+              isSelected={creditSelected}
+            />
+            <PaymentSelect
+              type="debit"
+              onSelect={handleSelectPayment}
+              isSelected={debitSelected}
+            />
+            <PaymentSelect
+              type="money"
+              onSelect={handleSelectPayment}
+              isSelected={moneySelected}
+            />
+          </PaymentSelectContent>
         </CardContainer>
       </RightSection>
 
