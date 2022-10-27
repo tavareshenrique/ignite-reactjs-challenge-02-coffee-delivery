@@ -19,7 +19,7 @@ interface ICheckoutCardHeaderProps {
   subtitle: string;
 }
 
-export default function CheckoutCardHeader({
+export function CheckoutCardHeader({
   title,
   subtitle,
   icon,
