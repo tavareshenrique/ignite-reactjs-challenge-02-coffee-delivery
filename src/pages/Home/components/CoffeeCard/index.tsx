@@ -5,6 +5,7 @@ import { ShoppingCart, Minus, Plus } from "phosphor-react";
 import { useCoffee } from "../../../../hooks/useCoffee";
 
 import { Button } from "../../../../components/Button";
+import { InputQuantity } from "../../../../components/InputQuantity";
 
 import {
   CoffeeBody,
@@ -17,14 +18,9 @@ import {
   CoffeeTitle,
   PriceContainer,
   PurchaseContainer,
-  QuantityButton,
-  QuantityContainer,
-  QuantityInput,
 } from "./styles";
 
-type OperationType = "add" | "remove";
-
-type CoffeeType = {
+type TCoffee = {
   id: number;
   name: string;
   description: string;
@@ -34,11 +30,11 @@ type CoffeeType = {
 };
 
 interface ICoffeeCardProps {
-  coffee: CoffeeType;
+  coffee: TCoffee;
 }
 
 export function CoffeeCard({ coffee }: ICoffeeCardProps) {
-  const { addNewCoffee, coffeeList, coffeeQuantity } = useCoffee();
+  const { addNewCoffee } = useCoffee();
 
   const [quantity, setQuantity] = useState(1);
 
@@ -46,18 +42,6 @@ export function CoffeeCard({ coffee }: ICoffeeCardProps) {
     style: "currency",
     currency: "BRL",
   }).format(coffee.price);
-
-  function handleQuantity(type: OperationType) {
-    if (type === "remove") {
-      if (quantity > 1) {
-        setQuantity((oldQuantityState) => oldQuantityState - 1);
-      }
-
-      return;
-    }
-
-    setQuantity((oldQuantityState) => oldQuantityState + 1);
-  }
 
   function handleAddCoffee() {
     addNewCoffee({
@@ -89,15 +73,7 @@ export function CoffeeCard({ coffee }: ICoffeeCardProps) {
           <span>{priceFormatted}</span>
         </PriceContainer>
         <PurchaseContainer>
-          <QuantityContainer>
-            <QuantityButton onClick={() => handleQuantity("remove")}>
-              <Minus size={14} weight="bold" />
-            </QuantityButton>
-            <QuantityInput>{quantity}</QuantityInput>
-            <QuantityButton onClick={() => handleQuantity("add")}>
-              <Plus size={14} weight="bold" />
-            </QuantityButton>
-          </QuantityContainer>
+          <InputQuantity quantity={quantity} onQuantityChange={setQuantity} />
           <Button
             type="button"
             color="purple-dark"

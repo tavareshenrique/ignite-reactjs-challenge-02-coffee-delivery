@@ -1,13 +1,14 @@
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useCallback, useEffect, useState } from "react";
 
 import { useFormContext, Controller } from "react-hook-form";
 
 import axios from "axios";
 
-import useDebounce from "../../../utils/useDebounce";
-import { TextInput } from "../../../components/TextInput";
+import useDebounce from "../../../../utils/useDebounce";
 
-import { TFormData } from "..";
+import { TextInput } from "../../../../components/TextInput";
+
+import { TFormData } from "../..";
 
 import { AddressContainer } from "./styles";
 
@@ -19,7 +20,18 @@ const CheckoutAddress = forwardRef<HTMLInputElement>((_, ref) => {
   const [disabledCity, setDisabledCity] = useState(false);
   const [disabledUf, setDisabledUf] = useState(false);
 
+  const [allFieldIsDisabled, setAllFieldIsDisabled] = useState(false);
+
   const cep = useDebounce(watch("cep"), 500);
+
+  const toggleFields = useCallback((isEnabled: boolean) => {
+    setDisabledStreet(isEnabled);
+    setDisabledNeighborhood(isEnabled);
+    setDisabledCity(isEnabled);
+    setDisabledUf(isEnabled);
+
+    setAllFieldIsDisabled(isEnabled);
+  }, []);
 
   useEffect(() => {
     async function getAddress() {
@@ -37,24 +49,18 @@ const CheckoutAddress = forwardRef<HTMLInputElement>((_, ref) => {
         setValue("cidade", data.localidade);
         setValue("uf", data.uf);
 
-        setDisabledStreet(true);
-        setDisabledNeighborhood(true);
-        setDisabledCity(true);
-        setDisabledUf(true);
+        toggleFields(true);
       }
     }
 
     getAddress();
-  }, [cep, setValue]);
+  }, [cep, setValue, toggleFields]);
 
   useEffect(() => {
     if (!cep) {
-      setDisabledStreet(false);
-      setDisabledNeighborhood(false);
-      setDisabledCity(false);
-      setDisabledUf(false);
+      toggleFields(false);
     }
-  }, [cep]);
+  }, [cep, toggleFields]);
 
   return (
     <AddressContainer>
@@ -76,7 +82,7 @@ const CheckoutAddress = forwardRef<HTMLInputElement>((_, ref) => {
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
-          <TextInput.Root fullWidth>
+          <TextInput.Root fullWidth disabled={allFieldIsDisabled}>
             <TextInput.Input
               placeholder="RUA"
               disabled={disabledStreet}
@@ -118,7 +124,7 @@ const CheckoutAddress = forwardRef<HTMLInputElement>((_, ref) => {
           control={control}
           rules={{ required: true }}
           render={({ field }) => (
-            <TextInput.Root>
+            <TextInput.Root disabled={allFieldIsDisabled}>
               <TextInput.Input
                 placeholder="BAIRRO"
                 disabled={disabledNeighborhood}
@@ -134,7 +140,7 @@ const CheckoutAddress = forwardRef<HTMLInputElement>((_, ref) => {
           control={control}
           rules={{ required: true }}
           render={({ field }) => (
-            <TextInput.Root fullWidth>
+            <TextInput.Root fullWidth disabled={allFieldIsDisabled}>
               <TextInput.Input
                 placeholder="CIDADE"
                 disabled={disabledCity}
@@ -150,7 +156,7 @@ const CheckoutAddress = forwardRef<HTMLInputElement>((_, ref) => {
           control={control}
           rules={{ required: true }}
           render={({ field }) => (
-            <TextInput.Root>
+            <TextInput.Root disabled={allFieldIsDisabled}>
               <TextInput.Input
                 placeholder="UF"
                 disabled={disabledUf}

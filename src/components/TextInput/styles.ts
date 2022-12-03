@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 type TInputShared = {
   fullWidth?: boolean;
@@ -6,6 +6,7 @@ type TInputShared = {
 
 export interface ITextInputRootContainerStyledProps extends TInputShared {
   withoutMarginTop?: boolean;
+  disabled?: boolean;
 }
 
 interface ITextInputInputContainerStyledProps extends TInputShared {
@@ -21,18 +22,23 @@ export const TextInputRootContainer = styled.div<ITextInputRootContainerStyledPr
   width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
   height: 42px;
 
-  background-color: ${({ theme }) => theme["base-input"]};
+  background-color: ${({ theme }) => theme.white};
 
   border: 1px solid ${({ theme }) => theme["base-button"]};
   border-radius: 4px;
 
   padding: 0 12px;
+  margin-top: ${({ withoutMarginTop }) => (withoutMarginTop ? "0" : "24px")};
 
   :focus-within {
     border: 1px solid ${({ theme }) => theme["yellow-dark"]};
   }
 
-  margin-top: ${({ withoutMarginTop }) => (withoutMarginTop ? "0" : "24px")};
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      background-color: ${({ theme }) => theme["base-input"]};
+    `}
 `;
 
 export const TextInputInputContainer = styled.input<ITextInputInputContainerStyledProps>`
@@ -41,7 +47,7 @@ export const TextInputInputContainer = styled.input<ITextInputInputContainerStyl
 
   border: 0;
 
-  background-color: ${({ theme }) => theme["base-input"]};
+  background-color: ${({ theme }) => theme.white};
 
   color: ${({ theme }) => theme["base-text"]};
 
@@ -49,6 +55,10 @@ export const TextInputInputContainer = styled.input<ITextInputInputContainerStyl
 
   &::placeholder {
     color: ${({ theme }) => theme["base-label"]};
+  }
+
+  &:disabled {
+    background-color: ${({ theme }) => theme["base-input"]};
   }
 `;
 

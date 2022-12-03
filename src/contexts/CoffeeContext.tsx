@@ -1,18 +1,23 @@
 import { createContext, ReactNode, useReducer } from "react";
 
-import { CoffeeType, coffeeReducer } from "../reducers/cart/reducer";
+import { TCoffeeType, coffeeReducer } from "../reducers/cart/reducer";
 
-import { addCoffeeAction } from "../reducers/cart/actions";
+import { addCoffeeAction, removeCoffeeAction } from "../reducers/cart/actions";
 
 interface IAddNewCoffee {
-  coffeeData: CoffeeType;
+  coffeeData: TCoffeeType;
   quantity: number;
 }
 
+interface IRemoveCoffee {
+  coffeeId: number;
+}
+
 interface ICoffeesContextType {
-  coffeeList: CoffeeType[];
+  coffeeList: TCoffeeType[];
   coffeeQuantity: number;
   addNewCoffee: ({ coffeeData, quantity }: IAddNewCoffee) => void;
+  removeCoffee: ({ coffeeId }: IRemoveCoffee) => void;
 }
 
 interface ICoffeesContextProviderProps {
@@ -53,10 +58,18 @@ export function CoffeesContextProvider({
       })
     );
 
-    // localStorage.setItem(
-    //   COFFEES_STATE_STORAGE_KEY,
-    //   JSON.stringify(coffeesState)
-    // );
+    localStorage.setItem(
+      COFFEES_STATE_STORAGE_KEY,
+      JSON.stringify(coffeesState)
+    );
+  }
+
+  function removeCoffee({ coffeeId }: IRemoveCoffee) {
+    dispatch(
+      removeCoffeeAction({
+        coffeeId,
+      })
+    );
   }
 
   const coffeeQuantity = coffeeList ? coffeeList.length : 0;
@@ -67,6 +80,7 @@ export function CoffeesContextProvider({
         coffeeList,
         coffeeQuantity,
         addNewCoffee,
+        removeCoffee,
       }}
     >
       {children}

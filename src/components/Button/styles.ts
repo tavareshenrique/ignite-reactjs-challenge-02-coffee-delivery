@@ -11,6 +11,7 @@ export const ButtonContainer = styled.button<IButtonContainerStyleProps>`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 
   height: 40px;
   padding: 10px;

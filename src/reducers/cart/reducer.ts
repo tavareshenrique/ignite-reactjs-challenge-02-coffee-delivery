@@ -1,8 +1,8 @@
 import { ActionTypes } from "./actions";
 
-import { addCoffeeInCartMethod } from "./methods";
+import { addCoffeeInCartMethod, removeCoffeeMethod } from "./methods";
 
-export type CoffeeType = {
+export type TCoffeeType = {
   id: number;
   name: string;
   description: string;
@@ -13,14 +13,15 @@ export type CoffeeType = {
 };
 
 export interface ICoffeeState {
-  coffeeList: CoffeeType[];
+  coffeeList: TCoffeeType[];
 }
 
 export interface IActionType {
   type: ActionTypes;
   payload?: {
-    newCoffee: CoffeeType;
-    quantity: number;
+    coffeeId?: number;
+    newCoffee?: TCoffeeType;
+    quantity?: number;
   };
 }
 
@@ -28,7 +29,8 @@ export function coffeeReducer(state: ICoffeeState, action: IActionType) {
   switch (action.type) {
     case ActionTypes.ADD_COFFEE:
       return addCoffeeInCartMethod(state, action);
-
+    case ActionTypes.REMOVE_COFFEE:
+      return removeCoffeeMethod(state, action);
     default:
       return state;
   }

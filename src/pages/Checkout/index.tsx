@@ -3,10 +3,16 @@ import { useForm, FormProvider } from "react-hook-form";
 
 import { MapPinLine, CurrencyDollar } from "phosphor-react";
 
+import { useCoffee } from "../../hooks/useCoffee";
+
 import { PaymentSelect, TSelectPayment } from "../../components/PaymentSelect";
 
-import { CheckoutAddress } from "./CheckoutAddress";
-import { CheckoutCardHeader } from "./CheckoutCardHeader";
+import {
+  CheckoutAddress,
+  CheckoutCardHeader,
+  CheckoutCoffeeCard,
+  CheckoutEmptyList,
+} from "./components";
 
 import {
   CardContainer,
@@ -29,6 +35,8 @@ export type TFormData = {
 };
 
 export function Checkout() {
+  const { coffeeList } = useCoffee();
+
   const [selectedPayment, setSelectedPayment] = useState<TSelectPayment | null>(
     null
   );
@@ -103,7 +111,15 @@ export function Checkout() {
         <Title>Cafés selecionados</Title>
 
         <CoffeeCardContainer>
-          <h1>Ola</h1>
+          {coffeeList && coffeeList.length > 0 ? (
+            <>
+              {coffeeList.map((coffee) => (
+                <CheckoutCoffeeCard key={coffee.id} coffee={coffee} />
+              ))}
+            </>
+          ) : (
+            <CheckoutEmptyList />
+          )}
         </CoffeeCardContainer>
       </LeftSection>
     </CheckoutContainer>

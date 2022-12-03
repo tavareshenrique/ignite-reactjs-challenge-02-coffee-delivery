@@ -20,6 +20,7 @@ export interface ITextInputRootProps
   extends ITextInputRootContainerStyledProps {
   children: ReactNode;
   optional?: boolean;
+  disabled?: boolean;
 }
 
 export interface ITextInputInputProps
@@ -36,11 +37,15 @@ function TextInputRoot({
   optional = false,
   fullWidth = false,
   withoutMarginTop = false,
+  disabled = false,
 }: ITextInputRootProps) {
+  console.log("disabled", disabled);
+
   return (
     <TextInputRootContainer
       fullWidth={fullWidth}
       withoutMarginTop={withoutMarginTop}
+      disabled={disabled}
     >
       {Children.map(children, (child) => {
         const item = child as ReactElement<
