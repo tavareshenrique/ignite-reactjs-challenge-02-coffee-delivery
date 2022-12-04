@@ -3,15 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { MapPin, ShoppingCart } from "phosphor-react";
 
 import { useCoffee } from "../../hooks/useCoffee";
+import { useLocation } from "../../hooks/useLocation";
 
 import { Button } from "../../components/Button";
 
-import { CoffeQuantity, HeaderContainer, HeaderContent } from "./styles";
-
 import coffeeDeliveryLogo from "../../assets/img/logo.svg";
+
+import { CoffeQuantity, HeaderContainer, HeaderContent } from "./styles";
 
 export function Header() {
   const { coffeeQuantity } = useCoffee();
+
+  const { city, uf } = useLocation();
 
   const navigate = useNavigate();
 
@@ -37,7 +40,9 @@ export function Header() {
       <HeaderContent>
         <Button color="purple-light">
           <MapPin size={22} weight="fill" className="header__map-pin_icon" />
-          <span>Três Rios, RJ</span>
+          <span>
+            {city} {uf}
+          </span>
         </Button>
         <Button
           color="yellow-light"
