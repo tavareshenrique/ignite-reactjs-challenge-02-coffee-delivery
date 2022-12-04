@@ -9,6 +9,9 @@ interface APIResponse {
   principalSubdivision: string;
 }
 
+export const COFFEES_UF_STORAGE_KEY =
+  "@coffee-delivery:coffess-uff-value-1.0.0";
+
 export function useLocation() {
   const [city, setCity] = useState("Carregando...");
   const [uf, setUf] = useState("");
@@ -37,6 +40,8 @@ export function useLocation() {
 
           setCity(`${data.city}, `);
           setUf(state);
+
+          localStorage.setItem(COFFEES_UF_STORAGE_KEY, state);
         });
       });
     }

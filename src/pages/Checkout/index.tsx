@@ -10,8 +10,8 @@ import { PaymentSelect, TSelectPayment } from "../../components/PaymentSelect";
 import {
   CheckoutAddress,
   CheckoutCardHeader,
-  CheckoutCoffeeCard,
   CheckoutEmptyList,
+  CheckoutDetails,
 } from "./components";
 
 import {
@@ -35,11 +35,13 @@ export type TFormData = {
 };
 
 export function Checkout() {
-  const { coffeeList } = useCoffee();
-
   const [selectedPayment, setSelectedPayment] = useState<TSelectPayment | null>(
     null
   );
+
+  const { coffeeList } = useCoffee();
+
+  const coffeeListIsEmpty = coffeeList && coffeeList.length > 0;
 
   const methods = useForm<TFormData>();
 
@@ -111,15 +113,7 @@ export function Checkout() {
         <Title>Cafés selecionados</Title>
 
         <CoffeeCardContainer>
-          {coffeeList && coffeeList.length > 0 ? (
-            <>
-              {coffeeList.map((coffee) => (
-                <CheckoutCoffeeCard key={coffee.id} coffee={coffee} />
-              ))}
-            </>
-          ) : (
-            <CheckoutEmptyList />
-          )}
+          {coffeeListIsEmpty ? <CheckoutDetails /> : <CheckoutEmptyList />}
         </CoffeeCardContainer>
       </LeftSection>
     </CheckoutContainer>

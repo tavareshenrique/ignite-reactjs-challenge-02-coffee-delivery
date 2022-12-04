@@ -1,8 +1,12 @@
-import { createContext, ReactNode, useReducer } from "react";
+import { createContext, ReactNode, useMemo, useReducer } from "react";
+
+import { COFFEES_UF_STORAGE_KEY } from "../hooks/useLocation";
 
 import { TCoffeeType, coffeeReducer } from "../reducers/cart/reducer";
 
 import { addCoffeeAction, removeCoffeeAction } from "../reducers/cart/actions";
+
+import DeliveryPriceByStateJSON from "../data/delivery-price-by-state.json";
 
 interface IAddNewCoffee {
   coffeeData: TCoffeeType;
@@ -16,6 +20,9 @@ interface IRemoveCoffee {
 interface ICoffeesContextType {
   coffeeList: TCoffeeType[];
   coffeeQuantity: number;
+  subtotal: string;
+  deliveryPrice: string;
+  totalPrice: string;
   addNewCoffee: ({ coffeeData, quantity }: IAddNewCoffee) => void;
   removeCoffee: ({ coffeeId }: IRemoveCoffee) => void;
 }
@@ -50,6 +57,46 @@ export function CoffeesContextProvider({
 
   const { coffeeList } = coffeesState;
 
+  const subtotal = useMemo(() => {
+    return coffeeList.reduce((acc, coffee) => {
+      const coffeePrice = coffee.price * coffee.quantity;
+
+      return acc + coffeePrice;
+    }, 0);
+  }, [coffeeList]);
+
+  const subtotalFormatted = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(subtotal);
+
+  const deliveryPrice = useMemo(() => {
+    const UF = localStorage.getItem(COFFEES_UF_STORAGE_KEY);
+
+    if (UF) {
+      const deliveryValue =
+        DeliveryPriceByStateJSON[UF as keyof typeof DeliveryPriceByStateJSON];
+
+      return deliveryValue;
+    }
+
+    return 0;
+  }, []);
+
+  const deliveryPriceFormatted = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(deliveryPrice);
+
+  const totalPrice = useMemo(() => {
+    return subtotal + deliveryPrice;
+  }, [deliveryPrice, subtotal]);
+
+  const totalPriceFormatted = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(totalPrice);
+
   function addNewCoffee({ coffeeData, quantity }: IAddNewCoffee) {
     dispatch(
       addCoffeeAction({
@@ -79,6 +126,9 @@ export function CoffeesContextProvider({
       value={{
         coffeeList,
         coffeeQuantity,
+        subtotal: subtotalFormatted,
+        deliveryPrice: deliveryPriceFormatted,
+        totalPrice: totalPriceFormatted,
         addNewCoffee,
         removeCoffee,
       }}

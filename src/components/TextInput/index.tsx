@@ -39,8 +39,6 @@ function TextInputRoot({
   withoutMarginTop = false,
   disabled = false,
 }: ITextInputRootProps) {
-  console.log("disabled", disabled);
-
   return (
     <TextInputRootContainer
       fullWidth={fullWidth}
