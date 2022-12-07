@@ -1,6 +1,10 @@
 import { ActionTypes } from "./actions";
 
-import { addCoffeeInCartMethod, removeCoffeeMethod } from "./methods";
+import {
+  addCoffeeInCartMethod,
+  removeAllCoffeesMethod,
+  removeCoffeeMethod,
+} from "./methods";
 
 export type TCoffeeType = {
   id: number;
@@ -31,6 +35,8 @@ export function coffeeReducer(state: ICoffeeState, action: IActionType) {
       return addCoffeeInCartMethod(state, action);
     case ActionTypes.REMOVE_COFFEE:
       return removeCoffeeMethod(state, action);
+    case ActionTypes.REMOVE_ALL_COFFEES:
+      return removeAllCoffeesMethod(state);
     default:
       return state;
   }

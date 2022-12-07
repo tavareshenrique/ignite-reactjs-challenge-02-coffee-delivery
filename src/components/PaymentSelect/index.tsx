@@ -47,6 +47,7 @@ export function PaymentSelect({
 
   return (
     <PaymentSelectContainer
+      type="button"
       onClick={handleSelect}
       className={`${isSelected && "selected"}`}
     >

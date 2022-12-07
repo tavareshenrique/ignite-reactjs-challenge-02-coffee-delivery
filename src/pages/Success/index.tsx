@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
+
 import { CurrencyDollar, MapPin, Timer } from "phosphor-react";
 
 import deliveryImage from "../../assets/img/delivery.svg";
 import { Icon } from "../../components/Icon";
+import { useCoffee } from "../../hooks/useCoffee";
 
 import {
   Container,
@@ -12,8 +15,23 @@ import {
   DetailValuesContent,
   InformationContent,
 } from "./styles";
+import { useEffect } from "react";
 
 export function Success() {
+  const navigate = useNavigate();
+
+  const { checkoutData } = useCoffee();
+
+  useEffect(() => {
+    if (!checkoutData) {
+      navigate("/");
+    }
+  });
+
+  if (!checkoutData) {
+    return;
+  }
+
   return (
     <Container>
       <h1>Uhu! Pedido confirmado</h1>
@@ -26,7 +44,14 @@ export function Success() {
               <Icon color="purple" icon={<MapPin weight="fill" size={16} />} />
               <InformationContent>
                 <span>
-                  Entrega em <b>Três Rios/RJ</b>
+                  Entrega em{" "}
+                  <b>
+                    {checkoutData.address.rua}, {checkoutData.address.numero}
+                  </b>
+                </span>
+                <span>
+                  {checkoutData.address.bairro} - {checkoutData.address.cidade},{" "}
+                  {checkoutData.address.uf}
                 </span>
               </InformationContent>
             </DetailValuesContent>
@@ -46,7 +71,7 @@ export function Success() {
               />
               <InformationContent>
                 <span>Pagamento na entrega</span>
-                <b>Cartão de Crédito</b>
+                <b>{checkoutData.paymentMethod}</b>
               </InformationContent>
             </DetailValuesContent>
           </DetailContent>

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { useForm, FormProvider } from "react-hook-form";
 
 import { MapPinLine, CurrencyDollar } from "phosphor-react";
@@ -24,7 +26,7 @@ import {
   Title,
 } from "./styles";
 
-export type TFormData = {
+export type TAddress = {
   cep: string;
   rua: string;
   numero: string;
@@ -34,12 +36,16 @@ export type TFormData = {
   uf: string;
 };
 
+export type TFormData = TAddress;
+
 export function Checkout() {
+  const navigate = useNavigate();
+
+  const { coffeeList, handleCheckout } = useCoffee();
+
   const [selectedPayment, setSelectedPayment] = useState<TSelectPayment | null>(
     null
   );
-
-  const { coffeeList } = useCoffee();
 
   const coffeeListIsEmpty = coffeeList && coffeeList.length > 0;
 
@@ -51,8 +57,21 @@ export function Checkout() {
     setSelectedPayment(paymentType);
   }
 
-  function onSubmit(data: any) {
-    console.log(data);
+  function onSubmit(data: TAddress) {
+    if (!selectedPayment) {
+      alert("Selecione uma forma de pagamento");
+
+      return;
+    }
+
+    console.log("champuis");
+
+    handleCheckout({
+      address: data,
+      paymentMethod: selectedPayment,
+    });
+
+    navigate("/success");
   }
 
   const creditSelected = selectedPayment === "credit";

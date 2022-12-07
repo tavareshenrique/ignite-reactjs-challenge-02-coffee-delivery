@@ -37,7 +37,9 @@ export function CheckoutDetails() {
           <CheckoutValueTotalPrice>{totalPrice}</CheckoutValueTotalPrice>
         </CheckoutValuesContent>
 
-        <Button color="yellow">CONFIRMAR PEDIDO</Button>
+        <Button type="submit" color="yellow">
+          CONFIRMAR PEDIDO
+        </Button>
       </CheckoutTotalPriceContent>
     </>
   );

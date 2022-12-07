@@ -1,12 +1,21 @@
-import { createContext, ReactNode, useMemo, useReducer } from "react";
+import { createContext, ReactNode, useMemo, useReducer, useState } from "react";
 
 import { COFFEES_UF_STORAGE_KEY } from "../hooks/useLocation";
 
 import { TCoffeeType, coffeeReducer } from "../reducers/cart/reducer";
 
-import { addCoffeeAction, removeCoffeeAction } from "../reducers/cart/actions";
+import {
+  addCoffeeAction,
+  removeAllCoffeesAction,
+  removeCoffeeAction,
+} from "../reducers/cart/actions";
 
-import DeliveryPriceByStateJSON from "../data/delivery-price-by-state.json";
+import deliveryPriceByStateJSON from "../data/delivery-price-by-state.json";
+
+import { TAddress } from "../pages/Checkout";
+import { TSelectPayment } from "../components/PaymentSelect";
+
+type TPaymentName = "Cartão de Crédito" | "Cartão de Débito" | "Dinheiro";
 
 interface IAddNewCoffee {
   coffeeData: TCoffeeType;
@@ -17,18 +26,31 @@ interface IRemoveCoffee {
   coffeeId: number;
 }
 
+interface ICoffeesContextProviderProps {
+  children: ReactNode;
+}
+
+interface ICheckoutData {
+  address: TAddress;
+  paymentMethod: TPaymentName;
+  coffees: TCoffeeType[];
+}
+
+interface IHandleCheckout {
+  address: TAddress;
+  paymentMethod: TSelectPayment;
+}
+
 interface ICoffeesContextType {
   coffeeList: TCoffeeType[];
   coffeeQuantity: number;
   subtotal: string;
   deliveryPrice: string;
   totalPrice: string;
+  checkoutData: ICheckoutData | null;
+  handleCheckout: ({ address, paymentMethod }: IHandleCheckout) => void;
   addNewCoffee: ({ coffeeData, quantity }: IAddNewCoffee) => void;
   removeCoffee: ({ coffeeId }: IRemoveCoffee) => void;
-}
-
-interface ICoffeesContextProviderProps {
-  children: ReactNode;
 }
 
 export const CoffeeContext = createContext({} as ICoffeesContextType);
@@ -39,6 +61,8 @@ export const COFFEES_STATE_STORAGE_KEY =
 export function CoffeesContextProvider({
   children,
 }: ICoffeesContextProviderProps) {
+  const [checkoutData, setCheckoutData] = useState<ICheckoutData | null>(null);
+
   const [coffeesState, dispatch] = useReducer(
     coffeeReducer,
     { coffeeList: [] },
@@ -56,6 +80,8 @@ export function CoffeesContextProvider({
   );
 
   const { coffeeList } = coffeesState;
+
+  const coffeeQuantity = coffeeList ? coffeeList.length : 0;
 
   const subtotal = useMemo(() => {
     return coffeeList.reduce((acc, coffee) => {
@@ -75,7 +101,7 @@ export function CoffeesContextProvider({
 
     if (UF) {
       const deliveryValue =
-        DeliveryPriceByStateJSON[UF as keyof typeof DeliveryPriceByStateJSON];
+        deliveryPriceByStateJSON[UF as keyof typeof deliveryPriceByStateJSON];
 
       return deliveryValue;
     }
@@ -119,7 +145,25 @@ export function CoffeesContextProvider({
     );
   }
 
-  const coffeeQuantity = coffeeList ? coffeeList.length : 0;
+  function handleCheckout({ address, paymentMethod }: IHandleCheckout) {
+    let payment: TPaymentName;
+
+    switch (paymentMethod) {
+      case "credit":
+        payment = "Cartão de Crédito" as TPaymentName;
+        break;
+      case "debit":
+        payment = "Cartão de Débito" as TPaymentName;
+        break;
+      default:
+        payment = "Dinheiro" as TPaymentName;
+        break;
+    }
+
+    setCheckoutData({ address, paymentMethod: payment, coffees: coffeeList });
+
+    dispatch(removeAllCoffeesAction());
+  }
 
   return (
     <CoffeeContext.Provider
@@ -129,6 +173,8 @@ export function CoffeesContextProvider({
         subtotal: subtotalFormatted,
         deliveryPrice: deliveryPriceFormatted,
         totalPrice: totalPriceFormatted,
+        checkoutData,
+        handleCheckout,
         addNewCoffee,
         removeCoffee,
       }}

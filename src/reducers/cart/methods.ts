@@ -51,3 +51,11 @@ export function removeCoffeeMethod(state: ICoffeeState, action: IActionType) {
     }
   });
 }
+
+export function removeAllCoffeesMethod(state: ICoffeeState) {
+  return produce(state, (draft) => {
+    draft.coffeeList = [];
+
+    localStorage.removeItem(COFFEES_STATE_STORAGE_KEY);
+  });
+}
