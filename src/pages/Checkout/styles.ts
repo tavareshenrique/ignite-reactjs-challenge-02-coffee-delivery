@@ -5,14 +5,29 @@ export const CheckoutContainer = styled.form`
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+
+    padding: 1rem;
+  }
 `;
 
 export const RightSection = styled.section`
   flex: 2;
+
+  @media only screen and (max-width: 768px) {
+    margin-top: 24px;
+    width: 100%;
+  }
 `;
 
 export const LeftSection = styled.section`
   flex: 1;
+
+  @media only screen and (max-width: 768px) {
+    margin-top: 24px;
+  }
 `;
 
 export const Title = styled.h2`
@@ -33,6 +48,15 @@ export const CardContainer = styled.div`
 
   padding: 40px;
   margin-top: 16px;
+
+  @media only screen and (max-width: 768px) {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 36px;
+    border-bottom-left-radius: 36px;
+    border-bottom-right-radius: 6px;
+
+    width: 100%;
+  }
 `;
 
 export const CoffeeCardContainer = styled.div`
@@ -48,6 +72,10 @@ export const CoffeeCardContainer = styled.div`
   border-top-right-radius: 36px;
   border-bottom-left-radius: 36px;
   border-bottom-right-radius: 6px;
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const PaymentSelectContent = styled.div`

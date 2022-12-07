@@ -83,4 +83,15 @@ export const TextInputGroupContainer = styled.div`
   div + div {
     margin-left: 12px;
   }
+
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    div + div {
+      margin-left: 0;
+    }
+  }
 `;

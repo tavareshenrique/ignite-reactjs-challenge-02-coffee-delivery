@@ -34,4 +34,26 @@ export const PaymentSelectContainer = styled.button`
     background-color: ${({ theme }) => theme["purple-light"]};
     border: 1px solid ${({ theme }) => theme.purple};
   }
+
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 185px;
+    height: 100px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    span {
+      font-size: 0.5rem;
+      line-height: 160%;
+
+      margin: 8px 0 0 0;
+    }
+  }
 `;

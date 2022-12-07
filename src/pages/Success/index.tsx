@@ -7,6 +7,7 @@ import {
   Container,
   Content,
   RightSide,
+  LeftSide,
   DetailContent,
   DetailValuesContent,
   InformationContent,
@@ -51,13 +52,13 @@ export function Success() {
           </DetailContent>
         </RightSide>
 
-        <div>
+        <LeftSide>
           <img
             src={deliveryImage}
             alt="Um homem de camiseta amarela em uma mobilete na cor roxa com um baú marrom na garupa."
             title="Um homem de camiseta amarela em uma mobilete na cor roxa com um baú marrom na garupa."
           />
-        </div>
+        </LeftSide>
       </Content>
     </Container>
   );

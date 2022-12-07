@@ -19,6 +19,18 @@ export const Container = styled.div`
 
     color: ${({ theme }) => theme["base-subtitle"]};
   }
+
+  @media only screen and (max-width: 768px) {
+    padding: 50px;
+
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1rem;
+    }
+  }
 `;
 
 export const Content = styled.main`
@@ -28,10 +40,30 @@ export const Content = styled.main`
   justify-content: space-between;
 
   margin-top: 2.5rem;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+
+    margin-top: 2rem;
+  }
 `;
 
 export const RightSide = styled.div`
   width: 80%;
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+export const LeftSide = styled.div`
+  @media only screen and (max-width: 768px) {
+    margin-top: 2rem;
+
+    img {
+      width: 100%;
+    }
+  }
 `;
 
 export const DetailContent = styled.div`
@@ -59,6 +91,12 @@ export const DetailContent = styled.div`
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding: 20px;
+
+    width: 100%;
   }
 `;
 
