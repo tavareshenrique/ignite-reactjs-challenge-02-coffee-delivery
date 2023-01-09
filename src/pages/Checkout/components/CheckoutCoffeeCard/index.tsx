@@ -77,7 +77,11 @@ export function CheckoutCoffeeCard({ coffee }: ICheckoutCoffeeCardProps) {
         <CoffeeActionsContent>
           <InputQuantity quantity={quantity} onQuantityChange={setQuantity} />
 
-          <Button color="base-button" onClick={handleRemoveCoffee}>
+          <Button
+            type="button"
+            color="base-button"
+            onClick={handleRemoveCoffee}
+          >
             <Trash size={16} />
             REMOVER
           </Button>
