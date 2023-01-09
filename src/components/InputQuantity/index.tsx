@@ -33,11 +33,11 @@ export function InputQuantity({
 
   return (
     <InputQuantityContainer>
-      <QuantityButton onClick={() => handleQuantity("remove")}>
+      <QuantityButton type="button" onClick={() => handleQuantity("remove")}>
         <Minus size={14} weight="bold" />
       </QuantityButton>
       <QuantityInput>{quantity}</QuantityInput>
-      <QuantityButton onClick={() => handleQuantity("add")}>
+      <QuantityButton type="button" onClick={() => handleQuantity("add")}>
         <Plus size={14} weight="bold" />
       </QuantityButton>
     </InputQuantityContainer>

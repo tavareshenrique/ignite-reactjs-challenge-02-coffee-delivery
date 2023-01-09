@@ -57,14 +57,53 @@ export function Checkout() {
     setSelectedPayment(paymentType);
   }
 
+  function validateAddress(data: TAddress) {
+    console.log("entrou");
+    const errors: Partial<TAddress> = {};
+
+    if (!data.cep) {
+      errors.cep = "CEP obrigatório";
+    }
+
+    if (!data.rua) {
+      errors.rua = "Rua obrigatória";
+    }
+
+    if (!data.numero) {
+      errors.numero = "Número obrigatório";
+    }
+
+    if (!data.bairro) {
+      errors.bairro = "Bairro obrigatório";
+    }
+
+    if (!data.cidade) {
+      errors.cidade = "Cidade obrigatória";
+    }
+
+    if (!data.uf) {
+      errors.uf = "UF obrigatório";
+    }
+
+    return errors;
+  }
+
   function onSubmit(data: TAddress) {
+    console.log("entrou 1");
+
+    const errors = validateAddress(data);
+
+    if (Object.keys(errors).length > 0) {
+      alert("Preencha todos os campos do endereço");
+
+      return;
+    }
+
     if (!selectedPayment) {
       alert("Selecione uma forma de pagamento");
 
       return;
     }
-
-    console.log("champuis");
 
     handleCheckout({
       address: data,
