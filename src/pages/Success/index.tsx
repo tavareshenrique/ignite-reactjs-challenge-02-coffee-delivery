@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { CurrencyDollar, MapPin, Timer } from "phosphor-react";
@@ -15,7 +16,6 @@ import {
   DetailValuesContent,
   InformationContent,
 } from "./styles";
-import { useEffect } from "react";
 
 export function Success() {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ export function Success() {
   });
 
   if (!checkoutData) {
-    return;
+    return <></>;
   }
 
   return (
