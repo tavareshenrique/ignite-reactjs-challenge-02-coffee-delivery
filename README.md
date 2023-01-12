@@ -3,8 +3,8 @@
 </h1>
 
 <p align="center">
-  <img alt="Last commit on GitHub" src="https://img.shields.io/github/last-commit/tavareshenrique/ignite-reactjs-v2?color=8047f8">
-  <img alt="Made by Henrique Tavares" src="https://img.shields.io/badge/made%20by-Henrique Tavares-%20?color=8047f8">
+  <img alt="Last commit on GitHub" src="https://img.shields.io/github/last-commit/tavareshenrique/ignite-reactjs-v2?color=5e60ce">
+  <img alt="Made by Henrique Tavares" src="https://img.shields.io/badge/made%20by-Henrique Tavares-%20?color=5e60ce">
   <img alt="Project top programing language" src="https://img.shields.io/github/languages/top/tavareshenrique/ignite-reactjs-v2?color=5e60ce">
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/tavareshenrique/ignite-reactjs-v2?color=5e60ce">
   <img alt="GitHub license" src="https://img.shields.io/github/license/tavareshenrique/ignite-reactjs-v2?color=5e60ce">
@@ -22,13 +22,11 @@
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tavareshenrique/ignite-reactjs-challenge-02-coffee-delivery/main/src/assets/preview/Coffee1.gif" width="700"/>
+    <img alt="Mobile 1" src="https://raw.githubusercontent.com/tavareshenrique/ignite-reactjs-challenge-02-coffee-delivery/main/src/assets/preview/Coffee1.gif" width="800px" />
+    <img alt="Mobile 2" src="https://raw.githubusercontent.com/tavareshenrique/ignite-reactjs-challenge-02-coffee-delivery/main/src/assets/preview/Coffee2.gif" width="800px" />
+    <img alt="Mobile 3" src="https://raw.githubusercontent.com/tavareshenrique/ignite-reactjs-challenge-02-coffee-delivery/main/src/assets/preview/Coffee-Mobile-1.gif" width="200px" />
+    <img alt="Mobile 4" src="https://raw.githubusercontent.com/tavareshenrique/ignite-reactjs-challenge-02-coffee-delivery/main/src/assets/preview/Coffee-Mobile-2.gif" width="200px" />
 </p>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/tavareshenrique/ignite-reactjs-challenge-02-coffee-delivery/main/src/assets/preview/Coffee2.gif" width="700"/>
-</p>
-
 
 ---
 
