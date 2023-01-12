@@ -36,19 +36,19 @@
 
 # :information_source: Como Executar?
 
-> **1.0.** Clone o Repositório:
+> Clone o Repositório:
 
 ```bash
 git clone https://github.com/tavareshenrique/ignite-reactjs-challenge-02-coffee-delivery.git
 ```
 
-> **1.1.** Instale as dependências:
+> Instale as dependências:
 
 ```bash
 yarn
 ```
 
-> **1.2.** Inicie o Serviço:
+> Inicie o Serviço:
 
 ```bash
 yarn dev
